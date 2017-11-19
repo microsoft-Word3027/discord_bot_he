@@ -156,8 +156,12 @@ function KuroEndRoundMusic:Initialize()
 	else
 		net.Receive("KuroEndRoundMusic", function(_)
 			local info = net.ReadBool()
-			local path = net.ReadString()
-			surface.PlaySound(path)
+			local path = net.ReadString()	
+			local filter = RecipientFilter()
+			filter:AddAllPlayers()
+			local snd = CreateSound(game.GetWorld(), path, filter)
+			snd:SetVolume(0.3) -- range: 0 - 1
+			snd:Play()
 			local title
 			local author
 			if (info) then
